@@ -1,0 +1,56 @@
+[GenericExample:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+ansible_ssh_user=ec2-user
+
+
+[GenericExample:children]
+towers
+frontends
+apps
+appdbs
+windows
+support
+
+[towers]
+## These are the towers
+tower1.ebce.internal public_host_name=tower1.685a.example.opentlc.com ssh_host=ec2-52-205-135-98.compute-1.amazonaws.com
+tower2.ebce.internal public_host_name=tower2.685a.example.opentlc.com ssh_host=ec2-35-169-64-108.compute-1.amazonaws.com
+tower3.ebce.internal public_host_name=tower3.685a.example.opentlc.com ssh_host=ec2-52-3-158-210.compute-1.amazonaws.com
+
+[frontends]
+## These are the frontends
+frontend1.ebce.internal ssh_host=ec2-35-168-244-252.compute-1.amazonaws.com
+
+[apps]
+## These are the apps
+app1.ebce.internal ssh_host=ec2-34-239-61-132.compute-1.amazonaws.com
+app2.ebce.internal ssh_host=ec2-34-232-126-43.compute-1.amazonaws.com
+
+[appdbs]
+## These are the appdbs
+appdb1.ebce.internal ssh_host=ec2-52-44-0-105.compute-1.amazonaws.com
+
+[windows]
+## These are the activedirectory servers
+ad1.ebce.internal ssh_host=ad1.ebce.example.opentlc.com ansible_password=jVMijRwLbI02gFCo2xkjlZ9lxEA7bm7zgg==
+
+
+## These are the supporthosts
+[support]
+support1.ebce.internal ssh_host=ec2-52-21-183-171.compute-1.amazonaws.com
+support2.ebce.internal ssh_host=ec2-35-168-153-172.compute-1.amazonaws.com
+
+[windows:vars]
+ansible_connection=winrm
+ansible_port=5986
+ansible_ssh_port=5986
+ansible_user=Administrator
+ansible_ssh_user=Administrator
+ansible_winrm_server_cert_validation=ignore
+ansible_winrm_transport=basic
+ansible_become=false
